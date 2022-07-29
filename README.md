@@ -8,5 +8,5 @@ As a user, you can:
 •	Sort the favorited cities by temperature.
 •	Search within the favorited cities.
 •	Access a settings page, where you can:
-o	 Toggle the temperature’s UOM between Fahrenheit and Celsius,
-o	 Toggle the display’s contrast (Light Mode/Dark Mode)
+•	 Toggle the temperature’s UOM between Fahrenheit and Celsius,
+•	 Toggle the display’s contrast (Light Mode/Dark Mode)
