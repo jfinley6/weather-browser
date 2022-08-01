@@ -1,3 +1,44 @@
+* {
+  margin: 0;
+  font-family: "Quicksand";
+  color: #333;
+}
+
 .App {
   text-align: center;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 90vw;
+  margin: 0 auto;
+  border-bottom: 2px solid #f2f2f2;
+}
+
+.navbar .links {
+  margin-left: auto;
+  font-size: 1.25em;
+}
+
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+
+.navbar a:hover {
+  color: #f1356d;
+}
+
+.active {
+  text-decoration: underline;
 }
