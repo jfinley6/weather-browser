@@ -1,9 +1,9 @@
 import React from "react";
 
-function Filters() {
+function Filters({handleSearch}) {
   return (
     <div id="filters">
-      <form>
+      <form onChange={(e) => handleSearch(e.target.value)}>
         <div className="relative">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg
@@ -30,14 +30,6 @@ function Filters() {
           />
         </div>
       </form>
-      <select
-        id="countries"
-        className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
-        <option>Sort by Name</option>
-        <option value="US">A - Z</option>
-        <option value="CA">Z - A</option>
-      </select>
     </div>
   );
 }
