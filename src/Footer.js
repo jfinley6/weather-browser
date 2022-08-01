@@ -5,7 +5,7 @@ function Footer() {
     <div id="footer">
       Made by{" "}
       <a
-        href="https://www.linkedin.com/in/john-finley-71ba22198/"
+        href="https://www.linkedin.com/in/john-tyler-finley/"
         target="_blank"
       >
         John Finley

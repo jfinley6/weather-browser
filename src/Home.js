@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Filters from "./Filters";
 import Favorites from "./Favorites";
+import Content from "./Content";
 
 function Home() {
   const [favorites, setFavorites] = useState([]);
+  const [currentCity, setCurrentCity] = useState("")
 
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
@@ -12,10 +14,13 @@ function Home() {
         .then((res) => res.json())
         .then((data) => {
           setFavorites(data);
+          setCurrentCity(data[0].city)
           localStorage.setItem("cities", JSON.stringify(data));
         });
     } else {
-      setFavorites(JSON.parse(localStorage.getItem("cities")));
+      setFavorites(JSON.parse(localStorage.getItem("cities")))
+      setCurrentCity(JSON.parse(localStorage.getItem("cities"))[0].city);
+
     }
   }, []);
 
@@ -25,7 +30,7 @@ function Home() {
         <Filters />
         <Favorites favorites={favorites} />
       </div>
-      <div id="contentContainer">Hello</div>
+      <div id="contentContainer"><Content /></div>
     </div>
   );
 }
