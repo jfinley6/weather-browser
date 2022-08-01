@@ -133,3 +133,5 @@ display: flex;
   align-items: center;
   justify-content: center;
 }
+
+li {list-style-type: circle;}
