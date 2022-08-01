@@ -10,7 +10,6 @@ function Home() {
   const [sort, setSort] = useState()
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
-      console.log("hello");
       fetch("http://localhost:3000/cities")
         .then((res) => res.json())
         .then((data) => {
