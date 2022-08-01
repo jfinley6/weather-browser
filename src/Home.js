@@ -6,7 +6,8 @@ import Content from "./Content";
 function Home() {
   const [favorites, setFavorites] = useState([]);
   const [currentCity, setCurrentCity] = useState("")
-
+  const [search, setSearch] = useState("")
+  const [sort, setSort] = useState()
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
       console.log("hello");
@@ -24,11 +25,21 @@ function Home() {
     }
   }, []);
 
+  function handleSearch(e) {
+    setSearch(e)
+  }
+
+  const displayedFavorite = favorites.filter((favorite) => favorite.city.toLowerCase().includes(search.toLowerCase()))
+
+  function handleSort(e) {
+
+  }
+
   return (
     <div id="home">
       <div id="favoritesContainer">
-        <Filters />
-        <Favorites favorites={favorites} />
+        <Filters handleSearch={handleSearch} />
+        <Favorites favorites={displayedFavorite} />
       </div>
       <div id="contentContainer"><Content /></div>
     </div>
