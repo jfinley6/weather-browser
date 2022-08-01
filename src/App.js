@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <div>
+      <div id="container">
         <Switch>
           <Route exact path="/">
             <Home />
