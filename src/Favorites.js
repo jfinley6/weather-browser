@@ -3,7 +3,6 @@ import React from "react";
 function Favorites({ favorites }) {
   const favoritesCards = favorites.map((favorite) => (
     <span key={favorite.id}>
-  
       <button
         style={{
           height: "12vh",
@@ -20,7 +19,6 @@ function Favorites({ favorites }) {
 
   return (
     <div id="favorites">
-      
       <div id="favoritesList">{favoritesCards}</div>
     </div>
   );

@@ -1,6 +1,52 @@
 import React, { useState, useEffect } from "react";
 
-function Content() {
+function Content({ currentCity }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [favorited, setFavorited] = useState(false)
+  const [currentCityData, setCurrentCityData] = useState({
+    city: "",
+    country: "",
+    temp: "",
+    humidity: "",
+    icon: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    if (currentCity === "") {
+      return;
+    } else {
+      setIsLoading((isLoading) => !isLoading)
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          currentCityData.city = data.name;
+          currentCityData.country = data.sys.country;
+          currentCityData.temp = data.main.temp;
+          currentCityData.humidity = data.main.humidity;
+          currentCityData.icon = data.weather[0].icon;
+          currentCityData.description = data.weather[0].description
+          setCurrentCityData({ ...currentCityData });
+        })
+        .then(setIsLoading((isLoading) => !isLoading));
+    }
+    setFavorited((favorited) => !favorited)
+
+  }, [currentCity]);
+
+let description = currentCityData.description;
+description = description
+  .toLowerCase()
+  .split(" ")
+  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+  .join(" ");  
+
+  function favoriteClick() {
+    setFavorited((favorited) => !favorited)
+  }
+
   return (
     <div
       style={{
@@ -50,12 +96,29 @@ function Content() {
         </div>
       </form>
       <div id="weatherContent">
-        <div id="content1">
-          <img src={"http://openweathermap.org/img/wn/04d@2x.png"}></img>
-          <div>Denver, USA</div>
-        </div>
-        <div id="content2">Temperature</div>
-        <div id="content3">Humidity</div>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <div id="content1">
+              <div id="city">
+                {currentCityData.city}, {currentCityData.country}
+              </div>
+              <img
+                src={`http://openweathermap.org/img/wn/${currentCityData.icon}@2x.png`}
+              ></img>
+              <div style={{marginTop: "-20px"}}>{description}</div>
+            </div>
+            <div id="content4">Temperature</div>
+            <div id="content2">
+              {((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3)}
+              °F
+            </div>
+            <div id="content5">Humidity</div>
+            <div id="content3">{currentCityData.humidity}%</div>
+            <button onClick={favoriteClick} id="star">{favorited ? "★" : "✩"}</button>
+          </>
+        )}
       </div>
     </div>
   );

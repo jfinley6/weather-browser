@@ -12,5 +12,10 @@
       "id": 3,
       "city": "Los Angeles"
     }
+  ],
+
+  "views": [
+    { "id": 1, "comment": "Nice job!" },
+    { "id": 2, "comment": "Cool!" }
   ]
 }
