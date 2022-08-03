@@ -32,15 +32,14 @@ function Content({ currentCity }) {
         })
         .then(setIsLoading((isLoading) => !isLoading))
         .then(() => {
-          let cities = JSON.parse(localStorage.getItem("cities"));
-          if (cities.some((e) => e.city === currentCityData.city)) {
-            setFavorited(true);
+          let data = JSON.parse(localStorage.getItem("cities"))
+          if (data.some((e) => e.city === currentCityData.city)) {
+            setFavorited(true)
           } else {
-            setFavorited(false);
+            setFavorited(false)
           }
         });
     }
-    setFavorited((favorited) => !favorited);
   }, [currentCity]);
 
   let description = currentCityData.description;
