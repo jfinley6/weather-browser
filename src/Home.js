@@ -41,7 +41,8 @@ function Home() {
         />
       </div>
       <div id="contentContainer">
-        <Content currentCity={currentCity} />
+        <Content currentCity={currentCity}
+        setCurrentCity={setCurrentCity} />
       </div>
     </div>
   );

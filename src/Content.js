@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Content({ currentCity }) {
+function Content({ currentCity, setCurrentCity }) {
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const [currentCityData, setCurrentCityData] = useState({
@@ -53,6 +53,11 @@ function Content({ currentCity }) {
     setFavorited((favorited) => !favorited);
   }
 
+  function handleSearch(e) {
+    e.preventDefault()
+    setCurrentCity(e.target["default-search"].value)
+  }
+
   return (
     <div
       style={{
@@ -62,7 +67,7 @@ function Content({ currentCity }) {
         width: "100%",
       }}
     >
-      <form style={{ width: "300px" }}>
+      <form onSubmit={(event) => handleSearch(event)} style={{ width: "300px" }}>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
