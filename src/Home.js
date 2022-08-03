@@ -37,6 +37,7 @@ function Home() {
         <Filters handleSearch={handleSearch} />
         <Favorites
           favorites={displayedFavorite}
+          setCurrentCity={setCurrentCity}
         />
       </div>
       <div id="contentContainer">
