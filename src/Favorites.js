@@ -1,9 +1,14 @@
 import React from "react";
 
-function Favorites({ favorites }) {
+function Favorites({ favorites, setCurrentCity }) {
+
+  function handleFavorite(value){
+setCurrentCity(value)
+  }
   const favoritesCards = favorites.map((favorite) => (
     <span key={favorite.id}>
-      <button
+  
+      <button onClick={() => handleFavorite(favorite.city)}
         style={{
           height: "12vh",
           width: "80%",
@@ -19,6 +24,7 @@ function Favorites({ favorites }) {
 
   return (
     <div id="favorites">
+      
       <div id="favoritesList">{favoritesCards}</div>
     </div>
   );

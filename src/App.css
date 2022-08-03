@@ -171,3 +171,5 @@ h1 {
   margin-left: 10px;
   color: red
 }
+
+li {list-style-type: circle;}
