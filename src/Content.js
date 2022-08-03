@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function Content({ currentCity }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [favorited, setFavorited] = useState(false)
+  const [favorited, setFavorited] = useState(false);
   const [currentCityData, setCurrentCityData] = useState({
     city: "",
     country: "",
@@ -16,7 +16,7 @@ function Content({ currentCity }) {
     if (currentCity === "") {
       return;
     } else {
-      setIsLoading((isLoading) => !isLoading)
+      setIsLoading((isLoading) => !isLoading);
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=`
       )
@@ -27,24 +27,31 @@ function Content({ currentCity }) {
           currentCityData.temp = data.main.temp;
           currentCityData.humidity = data.main.humidity;
           currentCityData.icon = data.weather[0].icon;
-          currentCityData.description = data.weather[0].description
+          currentCityData.description = data.weather[0].description;
           setCurrentCityData({ ...currentCityData });
         })
-        .then(setIsLoading((isLoading) => !isLoading));
+        .then(setIsLoading((isLoading) => !isLoading))
+        .then(() => {
+          let cities = JSON.parse(localStorage.getItem("cities"));
+          if (cities.some((e) => e.city === currentCityData.city)) {
+            setFavorited(true);
+          } else {
+            setFavorited(false);
+          }
+        });
     }
-    setFavorited((favorited) => !favorited)
-
+    setFavorited((favorited) => !favorited);
   }, [currentCity]);
 
-let description = currentCityData.description;
-description = description
-  .toLowerCase()
-  .split(" ")
-  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-  .join(" ");  
+  let description = currentCityData.description;
+  description = description
+    .toLowerCase()
+    .split(" ")
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(" ");
 
   function favoriteClick() {
-    setFavorited((favorited) => !favorited)
+    setFavorited((favorited) => !favorited);
   }
 
   return (
@@ -107,7 +114,7 @@ description = description
               <img
                 src={`http://openweathermap.org/img/wn/${currentCityData.icon}@2x.png`}
               ></img>
-              <div style={{marginTop: "-20px"}}>{description}</div>
+              <div style={{ marginTop: "-20px" }}>{description}</div>
             </div>
             <div id="content4">Temperature</div>
             <div id="content2">
@@ -116,7 +123,9 @@ description = description
             </div>
             <div id="content5">Humidity</div>
             <div id="content3">{currentCityData.humidity}%</div>
-            <button onClick={favoriteClick} id="star">{favorited ? "★" : "✩"}</button>
+            <button onClick={favoriteClick} id="star">
+              {favorited ? "★" : "✩"}
+            </button>
           </>
         )}
       </div>
