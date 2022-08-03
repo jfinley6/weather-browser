@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function Content({ currentCity, setCurrentCity }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [favorited, setFavorited] = useState(false);
+  const [favorited, setFavorited] = useState(true);
   const [currentCityData, setCurrentCityData] = useState({
     city: "",
     country: "",
@@ -32,11 +32,11 @@ function Content({ currentCity, setCurrentCity }) {
         })
         .then(setIsLoading((isLoading) => !isLoading))
         .then(() => {
-          let data = JSON.parse(localStorage.getItem("cities"))
+          let data = JSON.parse(localStorage.getItem("cities"));
           if (data.some((e) => e.city === currentCityData.city)) {
-            setFavorited(true)
+            setFavorited(true);
           } else {
-            setFavorited(false)
+            setFavorited(false);
           }
         });
     }
@@ -50,12 +50,36 @@ function Content({ currentCity, setCurrentCity }) {
     .join(" ");
 
   function favoriteClick() {
-    setFavorited((favorited) => !favorited);
+    if (!favorited) {
+      setFavorited((favorited) => !favorited)
+      let oldCities = JSON.parse(localStorage.getItem("cities"));
+      let upperCaseCity = currentCity
+      upperCaseCity = upperCaseCity
+        .toLowerCase()
+        .split(" ")
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(" ");
+      let newCity = { city: upperCaseCity };
+      let newObj = [...oldCities, newCity];
+      localStorage.setItem("cities", JSON.stringify(newObj));
+    } else {
+      setFavorited((favorited) => !favorited)
+      let oldCities = JSON.parse(localStorage.getItem("cities"))
+      let upperCaseCity = currentCity;
+      upperCaseCity = upperCaseCity
+        .toLowerCase()
+        .split(" ")
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(" ");
+      let newCities = oldCities.filter((item) => item.city !== upperCaseCity)
+      localStorage.setItem("cities", JSON.stringify(newCities))
+    }
   }
 
   function handleSearch(e) {
-    e.preventDefault()
-    setCurrentCity(e.target["default-search"].value)
+    e.preventDefault();
+    setCurrentCity(e.target["default-search"].value);
+    e.target.reset();
   }
 
   return (
@@ -67,7 +91,10 @@ function Content({ currentCity, setCurrentCity }) {
         width: "100%",
       }}
     >
-      <form onSubmit={(event) => handleSearch(event)} style={{ width: "300px" }}>
+      <form
+        onSubmit={(event) => handleSearch(event)}
+        style={{ width: "300px" }}
+      >
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
