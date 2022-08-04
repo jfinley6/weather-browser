@@ -8,6 +8,8 @@ function Home({temp}) {
   const [currentCity, setCurrentCity] = useState("");
   const [search, setSearch] = useState("");
 
+  
+
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
       fetch("https://phase-2-weather-data.herokuapp.com/cities")
