@@ -8,7 +8,7 @@ import Settings from "./Settings";
 import Footer from "./Footer";
 
 function App() {
-  if (localStorage.getItem("temperature" === undefined)) {
+  if (localStorage.getItem("temperature") === null) {
     var currentTemperature = "F";
     localStorage.setItem("temperature", "F");
   } else {
@@ -16,7 +16,7 @@ function App() {
   }
 
   let [temp, setTemp] = useState(currentTemperature);
-  
+
   function handleTemp() {
     if (temp === "F") {
       setTemp("C");
