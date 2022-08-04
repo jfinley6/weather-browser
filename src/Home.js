@@ -3,7 +3,7 @@ import Filters from "./Filters";
 import Favorites from "./Favorites";
 import Content from "./Content";
 
-function Home() {
+function Home({temp}) {
   const [favorites, setFavorites] = useState([]);
   const [currentCity, setCurrentCity] = useState("");
   const [search, setSearch] = useState("");
@@ -41,7 +41,7 @@ function Home() {
         />
       </div>
       <div id="contentContainer">
-        <Content currentCity={currentCity}
+        <Content currentCity={currentCity} temp={temp}
         setCurrentCity={setCurrentCity} />
       </div>
     </div>

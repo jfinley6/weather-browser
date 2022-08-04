@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-function Content({ currentCity, setCurrentCity }) {
+function Content({ currentCity, setCurrentCity, temp}) {
   const [isLoading, setIsLoading] = useState(false);
-  const [favorited, setFavorited] = useState(false)
+  const [favorited, setFavorited] = useState(true);
   const [currentCityData, setCurrentCityData] = useState({
     city: "",
     country: "",
@@ -16,9 +16,9 @@ function Content({ currentCity, setCurrentCity }) {
     if (currentCity === "") {
       return;
     } else {
-      setIsLoading((isLoading) => !isLoading)
+      setIsLoading((isLoading) => !isLoading);
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=`
+        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=603c1fe7d80e6312fb58fa945317b70d`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -27,29 +27,65 @@ function Content({ currentCity, setCurrentCity }) {
           currentCityData.temp = data.main.temp;
           currentCityData.humidity = data.main.humidity;
           currentCityData.icon = data.weather[0].icon;
-          currentCityData.description = data.weather[0].description
+          currentCityData.description = data.weather[0].description;
           setCurrentCityData({ ...currentCityData });
         })
-        .then(setIsLoading((isLoading) => !isLoading));
+        .then(setIsLoading((isLoading) => !isLoading))
+        .then(() => {
+          let data = JSON.parse(localStorage.getItem("cities"));
+          if (data.some((e) => e.city === currentCityData.city)) {
+            setFavorited(true);
+          } else {
+            setFavorited(false);
+          }
+        });
     }
-    setFavorited((favorited) => !favorited)
-
   }, [currentCity]);
 
-let description = currentCityData.description;
-description = description
-  .toLowerCase()
-  .split(" ")
-  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-  .join(" ");  
+  let description = currentCityData.description;
+  description = description
+    .toLowerCase()
+    .split(" ")
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(" ");
 
   function favoriteClick() {
-    setFavorited((favorited) => !favorited)
+    if (!favorited) {
+      setFavorited((favorited) => !favorited)
+      let oldCities = JSON.parse(localStorage.getItem("cities"));
+      let upperCaseCity = currentCity
+      upperCaseCity = upperCaseCity
+        .toLowerCase()
+        .split(" ")
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(" ");
+      let newCity = { city: upperCaseCity };
+      let newObj = [...oldCities, newCity];
+      localStorage.setItem("cities", JSON.stringify(newObj));
+      let newFavorite = {city: upperCaseCity}
+      // let newFavorites = [...favorites, newFavorite]
+      // setFavorites([...newFavorites])
+
+    } else {
+      setFavorited((favorited) => !favorited)
+      let oldCities = JSON.parse(localStorage.getItem("cities"))
+      let upperCaseCity = currentCity;
+      upperCaseCity = upperCaseCity
+        .toLowerCase()
+        .split(" ")
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(" ");
+      let newCities = oldCities.filter((item) => item.city !== upperCaseCity)
+      localStorage.setItem("cities", JSON.stringify(newCities))
+      // let newFavorites = favorites.filter((item) => item.city !== upperCaseCity)
+      // setFavorites([...newFavorites])
+    }
   }
 
   function handleSearch(e) {
-    e.preventDefault()
-    setCurrentCity(e.target["default-search"].value)
+    e.preventDefault();
+    setCurrentCity(e.target["default-search"].value);
+    e.target.reset();
   }
 
   return (
@@ -61,7 +97,10 @@ description = description
         width: "100%",
       }}
     >
-      <form onSubmit={(event) => handleSearch(event)} style={{ width: "300px" }}>
+      <form
+        onSubmit={(event) => handleSearch(event)}
+        style={{ width: "300px" }}
+      >
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -112,16 +151,18 @@ description = description
               <img
                 src={`http://openweathermap.org/img/wn/${currentCityData.icon}@2x.png`}
               ></img>
-              <div style={{marginTop: "-20px"}}>{description}</div>
+              <div style={{ marginTop: "-20px" }}>{description}</div>
             </div>
             <div id="content4">Temperature</div>
             <div id="content2">
-              {((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3)}
-              °F
+              {temp==="F" ? ((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3) : ((currentCityData.temp - 273.15).toPrecision(3))}
+              {temp==="F" ? "°F" : "°C" }
             </div>
             <div id="content5">Humidity</div>
             <div id="content3">{currentCityData.humidity}%</div>
-            <button onClick={favoriteClick} id="star">{favorited ? "★" : "✩"}</button>
+            <button onClick={favoriteClick} id="star">
+              {favorited ? "★" : "✩"}
+            </button>
           </>
         )}
       </div>
