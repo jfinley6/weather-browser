@@ -15,7 +15,7 @@ function Home({temp}) {
         .then((data) => {
           setFavorites(data);
           setCurrentCity(data[0].city);
-          localStorage.setItem("cities", JSON.stringify(data));
+          localStorage.setItem("cities", JSON.stringify(data))
         });
     } else {
       setFavorites(JSON.parse(localStorage.getItem("cities")));

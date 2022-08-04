@@ -8,13 +8,23 @@ import Settings from "./Settings";
 import Footer from "./Footer";
 
 function App() {
-  let [temp, setTemp] = useState("F")
+  if (localStorage.getItem("temperature" === undefined)) {
+    var currentTemperature = "F";
+    localStorage.setItem("temperature", "F");
+  } else {
+    var currentTemperature = localStorage.getItem("temperature");
+  }
 
+  let [temp, setTemp] = useState(currentTemperature);
+  
   function handleTemp() {
     if (temp === "F") {
-      setTemp("C")
+      setTemp("C");
+      localStorage.setItem("temperature", "C");
+    } else {
+      setTemp("F");
+      localStorage.setItem("temperature", "F");
     }
-    else {setTemp("F") }
   }
 
   return (
