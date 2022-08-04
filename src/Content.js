@@ -64,7 +64,9 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites}) {
       let newCity = { city: upperCaseCity };
       let newObj = [...oldCities, newCity];
       localStorage.setItem("cities", JSON.stringify(newObj));
-
+      let newFavorite = {city: upperCaseCity}
+      let newFavorites = [...favorites, newFavorite]
+      setFavorites([...newFavorites])
 
     } else {
       setFavorited((favorited) => !favorited)
@@ -77,7 +79,8 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites}) {
         .join(" ");
       let newCities = oldCities.filter((item) => item.city !== upperCaseCity)
       localStorage.setItem("cities", JSON.stringify(newCities))
- 
+      let newFavorites = favorites.filter((item) => item.city !== upperCaseCity)
+      setFavorites([...newFavorites])
     }
   }
 
