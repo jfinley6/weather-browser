@@ -10,7 +10,7 @@ function Home() {
 
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
-      fetch("http://localhost:3000/cities")
+      fetch("https://phase-2-weather-data.herokuapp.com/cities")
         .then((res) => res.json())
         .then((data) => {
           setFavorites(data);
