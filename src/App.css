@@ -171,6 +171,7 @@ h1 {
   margin-left: 10px;
   color: red;
   transition: all 0.25s ease;
+
 }
 
 #star:hover {
@@ -199,4 +200,52 @@ li {
 
 #favoriteCard:hover {
   transform: scale(1.02);
+
+}
+
+#star:hover {
+  transform: scale(1.5);
+}
+
+li {
+  width: 40vw;
+}
+
+#about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+#list {
+  text-align: start;
+  margin-top: 15px;
+}
+
+#favoriteCard {
+  transition: all 0.25s ease;
+}
+
+#favoriteCard:hover {
+  transform: scale(1.02);
+}
+
+#searchBar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  border: 1px solid black;
+}
+
+#suggestions {
+  font-size: 14px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#parent {
+  position: relative
 }
