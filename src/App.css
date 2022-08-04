@@ -230,22 +230,3 @@ li {
 #favoriteCard:hover {
   transform: scale(1.02);
 }
-
-#searchBar {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-  border: 1px solid black;
-}
-
-#suggestions {
-  font-size: 14px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-#parent {
-  position: relative
-}

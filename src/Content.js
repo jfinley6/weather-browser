@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 
-function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) {
-
-
+function Content({
+  currentCity,
+  setCurrentCity,
+  favorites,
+  setFavorites,
+  temp,
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(true);
   const [currentCityData, setCurrentCityData] = useState({
@@ -15,15 +19,14 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) 
     description: "",
   });
 
-
-
   useEffect(() => {
     if (currentCity === "") {
       return;
     } else {
       setIsLoading((isLoading) => !isLoading);
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`)
-
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`
+      )
         .then((res) => res.json())
         .then((data) => {
           currentCityData.city = data.name;
@@ -55,9 +58,9 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) 
 
   function favoriteClick() {
     if (!favorited) {
-      setFavorited((favorited) => !favorited)
+      setFavorited((favorited) => !favorited);
       let oldCities = JSON.parse(localStorage.getItem("cities"));
-      let upperCaseCity = currentCity
+      let upperCaseCity = currentCity;
       upperCaseCity = upperCaseCity
         .toLowerCase()
         .split(" ")
@@ -66,23 +69,24 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) 
       let newCity = { city: upperCaseCity };
       let newObj = [...oldCities, newCity];
       localStorage.setItem("cities", JSON.stringify(newObj));
-      let newFavorite = {city: upperCaseCity}
-      let newFavorites = [...favorites, newFavorite]
-      setFavorites([...newFavorites])
-      } else {
-      setFavorited((favorited) => !favorited)
-      let oldCities = JSON.parse(localStorage.getItem("cities"))
+      let newFavorite = { city: upperCaseCity };
+      let newFavorites = [...favorites, newFavorite];
+      setFavorites([...newFavorites]);
+    } else {
+      setFavorited((favorited) => !favorited);
+      let oldCities = JSON.parse(localStorage.getItem("cities"));
       let upperCaseCity = currentCity;
       upperCaseCity = upperCaseCity
         .toLowerCase()
         .split(" ")
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
         .join(" ");
-      let newCities = oldCities.filter((item) => item.city !== upperCaseCity)
-      localStorage.setItem("cities", JSON.stringify(newCities))
-      let newFavorites = favorites.filter((item) => item.city !== upperCaseCity)
-      setFavorites([...newFavorites])
-
+      let newCities = oldCities.filter((item) => item.city !== upperCaseCity);
+      localStorage.setItem("cities", JSON.stringify(newCities));
+      let newFavorites = favorites.filter(
+        (item) => item.city !== upperCaseCity
+      );
+      setFavorites([...newFavorites]);
     }
   }
 
@@ -117,7 +121,6 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) 
         width: "100%",
       }}
     >
-
       <div id="weatherContent">
         {isLoading ? (
           <div>Loading...</div>
@@ -134,9 +137,12 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) 
             </div>
             <div id="content4">Temperature</div>
             <div id="content2">
-              {temp==="F" ? ((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3) : ((currentCityData.temp - 273.15).toPrecision(3))}
-              {temp==="F" ? "°F" : "°C" }
-
+              {temp === "F"
+                ? ((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(
+                    3
+                  )
+                : (currentCityData.temp - 273.15).toPrecision(3)}
+              {temp === "F" ? "°F" : "°C"}
             </div>
             <div id="content5">Humidity</div>
             <div id="content3">{currentCityData.humidity}%</div>
