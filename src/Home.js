@@ -42,7 +42,9 @@ function Home() {
       </div>
       <div id="contentContainer">
         <Content currentCity={currentCity}
-        setCurrentCity={setCurrentCity} />
+        setCurrentCity={setCurrentCity}
+        favorites={favorites}
+        setFavorites={setFavorites} />
       </div>
     </div>
   );

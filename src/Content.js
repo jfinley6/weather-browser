@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Content({ currentCity, setCurrentCity}) {
+function Content({ currentCity, setCurrentCity, favorites, setFavorites}) {
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(true);
   const [currentCityData, setCurrentCityData] = useState({
@@ -12,13 +12,15 @@ function Content({ currentCity, setCurrentCity}) {
     description: "",
   });
 
+
+
   useEffect(() => {
     if (currentCity === "") {
       return;
     } else {
       setIsLoading((isLoading) => !isLoading);
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=603c1fe7d80e6312fb58fa945317b70d`
+        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -62,7 +64,7 @@ function Content({ currentCity, setCurrentCity}) {
       let newCity = { city: upperCaseCity };
       let newObj = [...oldCities, newCity];
       localStorage.setItem("cities", JSON.stringify(newObj));
-      let newFavorite = {city: upperCaseCity}
+      // let newFavorite = {city: upperCaseCity}
       // let newFavorites = [...favorites, newFavorite]
       // setFavorites([...newFavorites])
 
