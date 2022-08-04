@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Content({ currentCity, setCurrentCity }) {
+function Content({ currentCity, setCurrentCity}) {
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(true);
   const [currentCityData, setCurrentCityData] = useState({
@@ -18,7 +18,7 @@ function Content({ currentCity, setCurrentCity }) {
     } else {
       setIsLoading((isLoading) => !isLoading);
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=`
+        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=603c1fe7d80e6312fb58fa945317b70d`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -62,6 +62,10 @@ function Content({ currentCity, setCurrentCity }) {
       let newCity = { city: upperCaseCity };
       let newObj = [...oldCities, newCity];
       localStorage.setItem("cities", JSON.stringify(newObj));
+      let newFavorite = {city: upperCaseCity}
+      // let newFavorites = [...favorites, newFavorite]
+      // setFavorites([...newFavorites])
+
     } else {
       setFavorited((favorited) => !favorited)
       let oldCities = JSON.parse(localStorage.getItem("cities"))
@@ -73,6 +77,8 @@ function Content({ currentCity, setCurrentCity }) {
         .join(" ");
       let newCities = oldCities.filter((item) => item.city !== upperCaseCity)
       localStorage.setItem("cities", JSON.stringify(newCities))
+      // let newFavorites = favorites.filter((item) => item.city !== upperCaseCity)
+      // setFavorites([...newFavorites])
     }
   }
 
