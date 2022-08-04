@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-function Content({ currentCity, setCurrentCity, favorites, setFavorites}) {
+function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) {
+
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(true);
   const [currentCityData, setCurrentCityData] = useState({
@@ -19,9 +20,7 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites}) {
       return;
     } else {
       setIsLoading((isLoading) => !isLoading);
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`
-      )
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`)
         .then((res) => res.json())
         .then((data) => {
           currentCityData.city = data.name;
@@ -67,8 +66,7 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites}) {
       let newFavorite = {city: upperCaseCity}
       let newFavorites = [...favorites, newFavorite]
       setFavorites([...newFavorites])
-
-    } else {
+      } else {
       setFavorited((favorited) => !favorited)
       let oldCities = JSON.parse(localStorage.getItem("cities"))
       let upperCaseCity = currentCity;
@@ -157,8 +155,8 @@ function Content({ currentCity, setCurrentCity, favorites, setFavorites}) {
             </div>
             <div id="content4">Temperature</div>
             <div id="content2">
-              {((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3)}
-              °F
+              {temp==="F" ? ((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3) : ((currentCityData.temp - 273.15).toPrecision(3))}
+              {temp==="F" ? "°F" : "°C" }
             </div>
             <div id="content5">Humidity</div>
             <div id="content3">{currentCityData.humidity}%</div>

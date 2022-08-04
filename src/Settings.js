@@ -1,8 +1,15 @@
 import React from 'react'
 
-function Settings() {
+function Settings({handleTemp, temp}) {
+
+
   return (
-    <div>Settings</div>
+    <div>
+      <div>Settings</div>
+      <div>
+      <button onClick={handleTemp}>{temp==="F" ? "°F" : "°C" }</button>
+      </div>
+      </div>
   )
 }
 
