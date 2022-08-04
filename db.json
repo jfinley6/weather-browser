@@ -1,20 +1,17 @@
 {
   "cities": [
     {
-      "id": 1,
       "city": "Denver"
     },
     {
-      "id": 2,
       "city": "New York"
     },
     {
-      "id": 3,
       "city": "Los Angeles"
     }
   ],
 
-  "views": [
+  "comments": [
     { "id": 1, "comment": "Nice job!" },
     { "id": 2, "comment": "Cool!" }
   ]

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-function Content({ currentCity }) {
+function Content({ currentCity, setCurrentCity, favorites, setFavorites, temp}) {
+
   const [isLoading, setIsLoading] = useState(false);
-  const [favorited, setFavorited] = useState(false);
+  const [favorited, setFavorited] = useState(true);
   const [currentCityData, setCurrentCityData] = useState({
     city: "",
     country: "",
@@ -12,14 +13,14 @@ function Content({ currentCity }) {
     description: "",
   });
 
+
+
   useEffect(() => {
     if (currentCity === "") {
       return;
     } else {
       setIsLoading((isLoading) => !isLoading);
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=`
-      )
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`)
         .then((res) => res.json())
         .then((data) => {
           currentCityData.city = data.name;
@@ -32,15 +33,14 @@ function Content({ currentCity }) {
         })
         .then(setIsLoading((isLoading) => !isLoading))
         .then(() => {
-          let cities = JSON.parse(localStorage.getItem("cities"));
-          if (cities.some((e) => e.city === currentCityData.city)) {
+          let data = JSON.parse(localStorage.getItem("cities"));
+          if (data.some((e) => e.city === currentCityData.city)) {
             setFavorited(true);
           } else {
             setFavorited(false);
           }
         });
     }
-    setFavorited((favorited) => !favorited);
   }, [currentCity]);
 
   let description = currentCityData.description;
@@ -51,7 +51,41 @@ function Content({ currentCity }) {
     .join(" ");
 
   function favoriteClick() {
-    setFavorited((favorited) => !favorited);
+    if (!favorited) {
+      setFavorited((favorited) => !favorited)
+      let oldCities = JSON.parse(localStorage.getItem("cities"));
+      let upperCaseCity = currentCity
+      upperCaseCity = upperCaseCity
+        .toLowerCase()
+        .split(" ")
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(" ");
+      let newCity = { city: upperCaseCity };
+      let newObj = [...oldCities, newCity];
+      localStorage.setItem("cities", JSON.stringify(newObj));
+      let newFavorite = {city: upperCaseCity}
+      let newFavorites = [...favorites, newFavorite]
+      setFavorites([...newFavorites])
+      } else {
+      setFavorited((favorited) => !favorited)
+      let oldCities = JSON.parse(localStorage.getItem("cities"))
+      let upperCaseCity = currentCity;
+      upperCaseCity = upperCaseCity
+        .toLowerCase()
+        .split(" ")
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(" ");
+      let newCities = oldCities.filter((item) => item.city !== upperCaseCity)
+      localStorage.setItem("cities", JSON.stringify(newCities))
+      let newFavorites = favorites.filter((item) => item.city !== upperCaseCity)
+      setFavorites([...newFavorites])
+    }
+  }
+
+  function handleSearch(e) {
+    e.preventDefault();
+    setCurrentCity(e.target["default-search"].value);
+    e.target.reset();
   }
 
   return (
@@ -63,7 +97,10 @@ function Content({ currentCity }) {
         width: "100%",
       }}
     >
-      <form style={{ width: "300px" }}>
+      <form
+        onSubmit={(event) => handleSearch(event)}
+        style={{ width: "300px" }}
+      >
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -118,8 +155,8 @@ function Content({ currentCity }) {
             </div>
             <div id="content4">Temperature</div>
             <div id="content2">
-              {((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3)}
-              °F
+              {temp==="F" ? ((currentCityData.temp - 273.15) * (9 / 5) + 32).toPrecision(3) : ((currentCityData.temp - 273.15).toPrecision(3))}
+              {temp==="F" ? "°F" : "°C" }
             </div>
             <div id="content5">Humidity</div>
             <div id="content3">{currentCityData.humidity}%</div>
