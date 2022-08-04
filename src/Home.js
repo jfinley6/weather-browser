@@ -10,7 +10,7 @@ function Home({temp}) {
 
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
-      fetch("http://localhost:3000/cities")
+      fetch("https://phase-2-weather-data.herokuapp.com/cities")
         .then((res) => res.json())
         .then((data) => {
           setFavorites(data);
@@ -42,7 +42,9 @@ function Home({temp}) {
       </div>
       <div id="contentContainer">
         <Content currentCity={currentCity} temp={temp}
-        setCurrentCity={setCurrentCity} />
+        setCurrentCity={setCurrentCity}
+        favorites={favorites}
+        setFavorites={setFavorites} />
       </div>
     </div>
   );
