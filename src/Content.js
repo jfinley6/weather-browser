@@ -10,6 +10,8 @@ function Content({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(true);
+  const [currentState, setCurrentState] = useState("")
+  const [country, setCountry] = useState("")
   const [currentCityData, setCurrentCityData] = useState({
     city: "",
     country: "",
@@ -25,7 +27,7 @@ function Content({
     } else {
       setIsLoading((isLoading) => !isLoading);
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity},${currentState},${country}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -109,6 +111,7 @@ function Content({
   ) => {
     // Do something with address and placeId and suggestion
     setCurrentCity(suggestion.formattedSuggestion.mainText)
+    
     setAddress("")
   };
 
