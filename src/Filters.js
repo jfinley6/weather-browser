@@ -3,7 +3,7 @@ import React from "react";
 function Filters({handleSearch}) {
   return (
     <div id="filters">
-      <form onChange={(e) => handleSearch(e.target.value)}>
+      <form onChange={(e) => handleSearch(e.target.value)} autoComplete="off">
         <div className="relative">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg

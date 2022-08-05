@@ -72,17 +72,16 @@ h1 {
 
 #contentContainer {
   grid-area: 1 / 2 / 2 / 3;
-  height: 80%;
+  height: 90%;
   border-left: 2px solid #f2f2f2;
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
 #filters {
-  margin-top: 12px;
-  height: 20%;
+
+  height: 15%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -98,7 +97,7 @@ h1 {
 }
 
 #favoritesList {
-  height: 63vh;
+  height: 61vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -171,36 +170,6 @@ h1 {
   margin-left: 10px;
   color: red;
   transition: all 0.25s ease;
-
-}
-
-#star:hover {
-  transform: scale(1.5);
-}
-
-li {
-  width: 40vw;
-}
-
-#about {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 15px;
-}
-
-#list {
-  text-align: start;
-  margin-top: 15px;
-}
-
-#favoriteCard {
-  transition: all 0.25s ease;
-}
-
-#favoriteCard:hover {
-  transform: scale(1.02);
-
 }
 
 #star:hover {
@@ -231,21 +200,60 @@ li {
   transform: scale(1.02);
 }
 
-#searchBar {
+#star:hover {
+  transform: scale(1.5);
+}
+
+li {
+  font-size: 3vh;
+}
+
+#about {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  border: 1px solid black;
+  align-items: center;
+  margin-top: 15px;
+}
+
+#list {
+  text-align: start;
+  margin-top: 15px;
+}
+
+#favoriteCard {
+  transition: all 0.25s ease;
+}
+
+#favoriteCard:hover {
+  transform: scale(1.02);
 }
 
 #suggestions {
-  font-size: 14px;
+  font-size: 13px;
   position: absolute;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-top: 5px;
 }
 
 #parent {
-  position: relative
+  position: relative;
+  margin-top: 10px;
+  border: 1px solid black;
+}
+
+#icon {
+  margin-top: 10px;
+  color: #4078c0;
+  transition: all 0.25s ease;
+}
+
+#icon:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+}
+
+.links a:hover {
+   transition: all 0.5s ease;
 }
