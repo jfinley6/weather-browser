@@ -242,3 +242,18 @@ li {
   margin-top: 10px;
   border: 1px solid black;
 }
+
+#icon {
+  margin-top: 10px;
+  color: #4078c0;
+  transition: all 0.25s ease;
+}
+
+#icon:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+}
+
+.links a:hover {
+   transition: all 0.5s ease;
+}

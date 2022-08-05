@@ -22,6 +22,18 @@ function About() {
           units of measurement between celsius and fahrenheit.
         </li>
       </div>
+      <div>
+        <div style={{ fontWeight: "bold", marginTop: "5px" }}>
+          Github Repository
+        </div>
+        <a
+          href="https://github.com/jfinley6/phase-2-project"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i id="icon" class="fa-brands fa-4x fa-github"></i>
+        </a>
+      </div>
     </div>
   );
 }
