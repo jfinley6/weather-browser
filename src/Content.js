@@ -110,8 +110,9 @@ function Content({
     suggestion,
   ) => {
     // Do something with address and placeId and suggestion
-    setCurrentCity(suggestion.formattedSuggestion.mainText)
-    
+    setCurrentCity(suggestion.terms[0].value)
+    setCurrentState(suggestion.terms[1].value)
+
     setAddress("")
   };
 
@@ -161,8 +162,7 @@ function Content({
           onChange={handleChange}
           onSelect={handleSelect}
           searchOptions={{
-            componentRestrictions: {
-            },
+            componentRestrictions: {},
             types: ["(cities)"],
           }}
         >
