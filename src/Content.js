@@ -8,7 +8,7 @@ function Content({
   setFavorites,
   temp,
   currentState,
-  setCurrentState
+  setCurrentState,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(true);
@@ -21,7 +21,6 @@ function Content({
     description: "",
   });
 
-
   useEffect(() => {
     if (currentCity === "") {
       return;
@@ -33,7 +32,7 @@ function Content({
         .then((res) => res.json())
         .then((data) => {
           currentCityData.city = data.name;
-          currentCityData.state = currentState
+          currentCityData.state = currentState;
           currentCityData.temp = data.main.temp;
           currentCityData.humidity = data.main.humidity;
           currentCityData.icon = data.weather[0].icon;
@@ -43,8 +42,13 @@ function Content({
         .then(setIsLoading((isLoading) => !isLoading))
         .then(() => {
           let data = JSON.parse(localStorage.getItem("cities"));
-          console.log(data)
-          if (data.some((e) => e.city === currentCityData.city && e.state === currentCityData.state)) {
+          if (
+            data.some(
+              (e) =>
+                e.city === currentCityData.city &&
+                e.state === currentCityData.state
+            )
+          ) {
             setFavorited(true);
           } else {
             setFavorited(false);
@@ -53,8 +57,6 @@ function Content({
     }
   }, [currentCity, currentState]);
 
-  console.log(favorited)
-
   let description = currentCityData.description;
   description = description
     .toLowerCase()
@@ -62,7 +64,7 @@ function Content({
     .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
     .join(" ");
 
-  function favoriteClick() {
+  function favoriteClick(state) {
     if (!favorited) {
       setFavorited((favorited) => !favorited);
       let oldCities = JSON.parse(localStorage.getItem("cities"));
@@ -87,11 +89,25 @@ function Content({
         .split(" ")
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
         .join(" ");
-      let newCities = oldCities.filter((item) => item.city !== upperCaseCity);
+      let newCities = [];
+      oldCities.forEach((item) => {
+        if (item.state == state && item.city == upperCaseCity) {
+          return;
+        } else {
+          newCities.push(item);
+        }
+      });
+
       localStorage.setItem("cities", JSON.stringify(newCities));
-      let newFavorites = favorites.filter(
-        (item) => item.city !== upperCaseCity
-      );
+
+      let newFavorites = [];
+      favorites.forEach((item) => {
+        if (item.state == state && item.city == upperCaseCity) {
+          return;
+        } else {
+          newFavorites.push(item);
+        }
+      });
       setFavorites([...newFavorites]);
     }
   }
@@ -102,17 +118,11 @@ function Content({
     setAddress(value);
   };
 
-  const handleSelect = (
-    address,
-    placeId,
-    suggestion,
-  ) => {
+  const handleSelect = (address, placeId, suggestion) => {
     // Do something with address and placeId and suggestion
-    console.log(suggestion)
-    setCurrentCity(suggestion.terms[0].value)
-    setCurrentState(suggestion.terms[1].value)
-
-    setAddress("")
+    setCurrentCity(suggestion.terms[0].value);
+    setCurrentState(suggestion.terms[1].value);
+    setAddress("");
   };
 
   return (
@@ -149,7 +159,10 @@ function Content({
             </div>
             <div id="content5">Humidity</div>
             <div id="content3">{currentCityData.humidity}%</div>
-            <button onClick={favoriteClick} id="star">
+            <button
+              onClick={() => favoriteClick(currentCityData.state)}
+              id="star"
+            >
               {favorited ? "★" : "✩"}
             </button>
           </>
@@ -185,7 +198,10 @@ function Content({
                     : { backgroundColor: "white", cursor: "pointer" };
 
                   return (
-                    <div {...getSuggestionItemProps(suggestion, { style })}>
+                    <div
+                      key={suggestion.placeId}
+                      {...getSuggestionItemProps(suggestion, { style })}
+                    >
                       {suggestion.description}
                     </div>
                   );
