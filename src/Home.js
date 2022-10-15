@@ -11,10 +11,10 @@ function Home({temp}) {
 
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
-      fetch("http://localhost:4000/cities")
+      fetch("https://intense-journey-54532.herokuapp.com/cities")
         .then((res) => res.json())
         .then((data) => {
-          setCurrentState(data[0].state)
+          setCurrentState(data[0].state);
           setFavorites(data);
           setCurrentCity(data[0].city);
           localStorage.setItem("cities", JSON.stringify(data));
