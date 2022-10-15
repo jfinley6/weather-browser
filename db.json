@@ -1,13 +1,16 @@
 {
   "cities": [
     {
-      "city": "Denver"
+      "city": "Denver",
+      "state": "CO"
     },
     {
-      "city": "New York"
+      "city": "New York",
+      "state": "NY"
     },
     {
-      "city": "Los Angeles"
+      "city": "Los Angeles",
+      "state": "CA"
     }
   ],
 
