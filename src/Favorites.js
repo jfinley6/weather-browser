@@ -6,7 +6,7 @@ function Favorites({ favorites, setCurrentCity, setCurrentState }) {
     setCurrentState(value.state)
   }
   const favoritesCards = favorites.map((favorite) => (
-    <span key={favorite.city}>
+    <span key={`${favorite.city}, ${favorite.state}`}>
       <button
         onClick={() => handleFavorite(favorite)}
         style={{
