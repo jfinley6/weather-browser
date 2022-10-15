@@ -30,7 +30,7 @@ function About() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <i id="icon" class="fa-brands fa-4x fa-github"></i>
+          <i id="icon" className="fa-brands fa-4x fa-github"></i>
         </a>
       </div>
     </div>
