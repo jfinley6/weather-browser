@@ -1,12 +1,23 @@
-From the brilliant minds of John Finley and Christian JW Trublet de Nermont comes a revolutionary single page weather app that…tells you the weather.
+# Phase-2-Project Weather App
 
-As a user, you can:
+A weather app which allows users to receive up to the minute weather for cities across America. Upon first loading the page, the user will have three cities (Denver, New York, and Los Angeles) loaded into their favorites. The first cities weather will always be loaded first. Weather information includes temperature, humidity, and and a condition icon. Users can click the red star to add it to their favorites for easy access or alternatively remove it. These favorites will be unique for each browser that accesses the page by storing them in Local Storage. Clicking the settings button will give you an option that will allow you to switch between Fahrenheit and Celcius units.
 
-*	Search cities and display their current weather (possibly even a forecast, but TBD due to time).
-*	Favorite your searched cities and send them to a favorited section.
-*	Access your favorited locations from a favorites section, allowing for quicker locating and loading.
-*	Sort the favorited cities by temperature.
-*	Search within the favorited cities.
-*	Access a settings page, where you can:
-*	Toggle the temperature’s UOM between Fahrenheit and Celsius,
-*	Toggle the display’s contrast (Light Mode/Dark Mode)
+* [Live Version](https://jfinley6.github.io/phase-1-project/)
+
+## Built With
+
+* [ReactJS](https://reactjs.org/docs/getting-started.html) - The web framword used
+* [json-server](https://maven.apache.org/) - Fake REST API used to load initial favorites
+* [OpenWeatherMap API](https://openweathermap.org/api) - Weather API
+* [Google Autocomplete API](https://developers.google.com/maps/documentation/javascript/place-autocomplete) - Autocomplete cities for search input
+
+## Authors
+
+* **John Finley** - [Github](https://github.com/jfinley6) | [LinkedIn](https://www.linkedin.com/in/john-tyler-finley/) 
+
+* **Christian Trublet de Nermont ** - [Github](https://github.com/MemphisFoo) | [LinkedIn](https://www.linkedin.com/in/christiantrublet/) 
+
+
+## Acknowledgments
+
+* Thanks to Flatiron School for giving us the tools we needed to complete this project!
