@@ -26,7 +26,7 @@ function Filters({handleSearch}) {
             type="search"
             id="default-search"
             className="block p-4 pl-10 w-full text-sm bg-gray-200 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-black dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search Cities..."
+            placeholder="Search Favorites..."
           />
         </div>
       </form>
