@@ -7,19 +7,22 @@ function Home({temp}) {
   const [favorites, setFavorites] = useState([]);
   const [currentCity, setCurrentCity] = useState("");
   const [search, setSearch] = useState("");
+  const [currentState, setCurrentState] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("cities") === null) {
-      fetch("https://phase-2-weather-data.herokuapp.com/cities")
+      fetch("http://localhost:4000/cities")
         .then((res) => res.json())
         .then((data) => {
+          setCurrentState(data[0].state)
           setFavorites(data);
           setCurrentCity(data[0].city);
-          localStorage.setItem("cities", JSON.stringify(data))
+          localStorage.setItem("cities", JSON.stringify(data));
         });
     } else {
       setFavorites(JSON.parse(localStorage.getItem("cities")));
       setCurrentCity(JSON.parse(localStorage.getItem("cities"))[0].city);
+      setCurrentState(JSON.parse(localStorage.getItem("cities"))[0].state);
     }
   }, []);
 
@@ -38,13 +41,16 @@ function Home({temp}) {
         <Favorites
           favorites={displayedFavorite}
           setCurrentCity={setCurrentCity}
+          setCurrentState={setCurrentState}
         />
       </div>
       <div id="contentContainer">
         <Content currentCity={currentCity} temp={temp}
         setCurrentCity={setCurrentCity}
         favorites={favorites}
-        setFavorites={setFavorites} />
+        setFavorites={setFavorites}
+        currentState={currentState}
+        setCurrentState={setCurrentState} />
       </div>
     </div>
   );
