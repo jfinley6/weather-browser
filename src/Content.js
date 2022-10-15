@@ -7,19 +7,20 @@ function Content({
   favorites,
   setFavorites,
   temp,
+  currentState,
+  setCurrentState
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [favorited, setFavorited] = useState(true);
-  const [currentState, setCurrentState] = useState("")
-  const [country, setCountry] = useState("")
   const [currentCityData, setCurrentCityData] = useState({
     city: "",
-    country: "",
+    state: "",
     temp: "",
     humidity: "",
     icon: "",
     description: "",
   });
+
 
   useEffect(() => {
     if (currentCity === "") {
@@ -27,12 +28,12 @@ function Content({
     } else {
       setIsLoading((isLoading) => !isLoading);
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity},${currentState},${country}&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${currentCity},${currentState},US&appid=${process.env.REACT_APP_PHASE_2_PROJECT_API}`
       )
         .then((res) => res.json())
         .then((data) => {
           currentCityData.city = data.name;
-          currentCityData.country = data.sys.country;
+          currentCityData.state = currentState
           currentCityData.temp = data.main.temp;
           currentCityData.humidity = data.main.humidity;
           currentCityData.icon = data.weather[0].icon;
@@ -42,14 +43,17 @@ function Content({
         .then(setIsLoading((isLoading) => !isLoading))
         .then(() => {
           let data = JSON.parse(localStorage.getItem("cities"));
-          if (data.some((e) => e.city === currentCityData.city)) {
+          console.log(data)
+          if (data.some((e) => e.city === currentCityData.city && e.state === currentCityData.state)) {
             setFavorited(true);
           } else {
             setFavorited(false);
           }
         });
     }
-  }, [currentCity]);
+  }, [currentCity, currentState]);
+
+  console.log(favorited)
 
   let description = currentCityData.description;
   description = description
@@ -68,10 +72,10 @@ function Content({
         .split(" ")
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
         .join(" ");
-      let newCity = { city: upperCaseCity };
+      let newCity = { city: upperCaseCity, state: currentState };
       let newObj = [...oldCities, newCity];
       localStorage.setItem("cities", JSON.stringify(newObj));
-      let newFavorite = { city: upperCaseCity };
+      let newFavorite = { city: upperCaseCity, state: currentState };
       let newFavorites = [...favorites, newFavorite];
       setFavorites([...newFavorites]);
     } else {
@@ -92,12 +96,6 @@ function Content({
     }
   }
 
-  function handleSearch(e) {
-    e.preventDefault();
-    setCurrentCity(e.target["default-search"].value);
-    e.target.reset();
-  }
-
   const [address, setAddress] = useState("");
 
   const handleChange = (value) => {
@@ -110,6 +108,7 @@ function Content({
     suggestion,
   ) => {
     // Do something with address and placeId and suggestion
+    console.log(suggestion)
     setCurrentCity(suggestion.terms[0].value)
     setCurrentState(suggestion.terms[1].value)
 
@@ -132,7 +131,7 @@ function Content({
           <>
             <div id="content1">
               <div id="city">
-                {currentCityData.city}, {currentCityData.country}
+                {currentCityData.city}, {currentState}
               </div>
               <img
                 src={`http://openweathermap.org/img/wn/${currentCityData.icon}@2x.png`}
@@ -162,7 +161,7 @@ function Content({
           onChange={handleChange}
           onSelect={handleSelect}
           searchOptions={{
-            componentRestrictions: {},
+            componentRestrictions: { country: ["us"] },
             types: ["(cities)"],
           }}
         >
@@ -175,7 +174,7 @@ function Content({
             <div id="parent">
               <input
                 {...getInputProps({
-                  placeholder: "Search cities...",
+                  placeholder: " Search cities...",
                 })}
               />
               <div id="suggestions">
