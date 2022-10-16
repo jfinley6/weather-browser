@@ -6,7 +6,7 @@ A weather app which allows users to receive up to the minute weather for cities 
 
 ## Built With
 
-* [ReactJS](https://reactjs.org/docs/getting-started.html) - The web framword used
+* [ReactJS](https://reactjs.org/docs/getting-started.html) - The web framework used
 * [json-server](https://maven.apache.org/) - Fake REST API used to load initial favorites
 * [OpenWeatherMap API](https://openweathermap.org/api) - Weather API
 * [Google Autocomplete API](https://developers.google.com/maps/documentation/javascript/place-autocomplete) - Autocomplete cities for search input
