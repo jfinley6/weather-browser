@@ -10,6 +10,7 @@ A weather app which allows users to receive up to the minute weather for cities 
 * [json-server](https://maven.apache.org/) - Fake REST API used to load initial favorites
 * [OpenWeatherMap API](https://openweathermap.org/api) - Weather API
 * [Google Autocomplete API](https://developers.google.com/maps/documentation/javascript/place-autocomplete) - Autocomplete cities for search input
+* [Tailwind](https://tailwindcss.com/docs/guides/create-react-app) - Used to style the frontend
 
 ## Authors
 
