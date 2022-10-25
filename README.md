@@ -1,20 +1,15 @@
-# SketchDeck Angular-Starter
+# Phase-2 Project Weather App
 
-A take home test for SketchDeck's interview process. My first time working in an Angular environment
+A weather app which allows users to receive up to the minute weather for cities across America. Upon first loading the page, the user will have three cities (Denver, New York, and Los Angeles) loaded into their favorites. The first cities weather will always be loaded first. Weather information includes temperature, humidity, and acondition icon. Users can click the red star to add it to their favorites for easy access or alternatively remove it. These favorites will be unique for each browser that accesses the page by storing them in Local Storage. Clicking the settings button will give you an option that will allow you to switch between Fahrenheit and Celcius units.
 
 
 ## Built With
-
-<<<<<<< HEAD
-* [Angular](https://angular.io/docs) - The web framework used
-* [CSS](https://devdocs.io/css/) - Used to style UI
-=======
 * [ReactJS](https://reactjs.org/docs/getting-started.html) - The web framword used
 * [json-server](https://maven.apache.org/) - Fake REST API used to load initial favorites
 * [OpenWeatherMap API](https://openweathermap.org/api) - Weather API
 * [Google Autocomplete API](https://developers.google.com/maps/documentation/javascript/place-autocomplete) - Autocomplete cities for search input
 * [Tailwind](https://tailwindcss.com/docs/guides/create-react-app) - Used to style the frontend
->>>>>>> parent of bb2743b (Update README.md)
+
 
 ## Author
 
@@ -23,4 +18,4 @@ A take home test for SketchDeck's interview process. My first time working in an
 
 ## Acknowledgments
 
-* Thanks to Joe and SketchDeck for this awesome oppurtunity!
+* Thanks to Flatiron for giving us the tools to complete this!
