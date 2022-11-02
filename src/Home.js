@@ -3,28 +3,8 @@ import Filters from "./Filters";
 import Favorites from "./Favorites";
 import Content from "./Content";
 
-function Home({temp}) {
-  const [favorites, setFavorites] = useState([]);
-  const [currentCity, setCurrentCity] = useState("");
+function Home({temp, currentCity, currentState, setCurrentCity, setCurrentState, favorites, setFavorites}) {
   const [search, setSearch] = useState("");
-  const [currentState, setCurrentState] = useState("");
-
-  useEffect(() => {
-    if (localStorage.getItem("cities") === null) {
-      fetch("https://intense-journey-54532.herokuapp.com/cities")
-        .then((res) => res.json())
-        .then((data) => {
-          setCurrentState(data[0].state);
-          setFavorites(data);
-          setCurrentCity(data[0].city);
-          localStorage.setItem("cities", JSON.stringify(data));
-        });
-    } else {
-      setFavorites(JSON.parse(localStorage.getItem("cities")));
-      setCurrentCity(JSON.parse(localStorage.getItem("cities"))[0].city);
-      setCurrentState(JSON.parse(localStorage.getItem("cities"))[0].state);
-    }
-  }, []);
 
   function handleSearch(e) {
     setSearch(e);
